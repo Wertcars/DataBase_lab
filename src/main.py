@@ -1,8 +1,8 @@
 from models import Product
 from repository import BaseModel
-import testing
+from testing import db
 
-db = testing.db
+db = db
 
 def create_product():
     name = input("Name: ") 
@@ -11,7 +11,7 @@ def create_product():
     price = float(price_input) if price_input else None
     sub_type_input = input("Sub type (optional): ").strip()
     sub_type = str(sub_type_input) if sub_type_input else None
-    rating_input = input("Rating (optional): ").strip()
+    rating_input = input("Rating 0 - 5 (optional): ").strip()
     rating = float(rating_input) if rating_input else None
     weight_input = input("Weight (optional): ").strip()
     weight = float(weight_input) if weight_input else None
@@ -45,12 +45,13 @@ def create_product():
     print(f"Product added, ID: {product.id}")
 
 def update_product():
+    product_id = int(input("Enter product ID: "))
     sub_type = input("New sub-type: ")
     price = float(input("New price: "))
     rating = float(input("New rating: "))
     is_available = (input("Is available (true/false): ").lower() in ["true", "yes", "1"])
 
-    result = db.update(sub_type=sub_type, price=price, rating=rating, is_avaliable=is_available)
+    result = db.update(product_id, sub_type=sub_type, price=price, rating=rating, is_avaliable=is_available)
 
     if result:
         print("Product updated")
