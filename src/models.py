@@ -13,8 +13,6 @@ class Product:
     sub_type: str = None
     rating: float = None
     weight: float = None
-    size_x: float = None
-    size_y: float = None
 
     def __str__(self):  
         if self.size_x and self.size_y:

@@ -1,5 +1,5 @@
 from models import Product
-from database import BaseModel
+from repository import BaseModel
 import testing
 
 db = testing.db
@@ -67,6 +67,11 @@ def show_products():
 
     for product in products:
         print(product)
+    
+def show_all_products():
+    products = db.get_all()
+    for product in products:
+        print(product)
 
 def main():
     while True:
@@ -74,7 +79,8 @@ def main():
         print("2. Update product")
         print("3. Delete product")
         print("4. Show products")
-        print("5. Exit")
+        print("5. Show all products")
+        print("6. Exit")
 
         choice = input("Enter your choice: ")
 
@@ -87,6 +93,8 @@ def main():
         elif choice == "4":
             show_products()
         elif choice == "5":
+            show_all_products()
+        elif choice == "6":
             break
         else:
             print("Invalid choice")

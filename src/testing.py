@@ -1,4 +1,4 @@
-from database import BaseModel
+from repository import BaseModel
 from models import Product
 
 db = BaseModel()
