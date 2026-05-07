@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message Product {
+
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  double price = 4;
+  double size_x = 5;
+  double size_y = 6;
+  bool is_avaliable = 7;
+  string sub_type = 8;
+  double rating = 9;
+  double weight = 10;
+}

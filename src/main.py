@@ -1,104 +1,29 @@
-from models import Product
-from repository import BaseModel
-from testing import db
+from repository.memory_repository import MemoryRepository
+from repository.json_repository import JsonRepository
+from repository.redis_repository import RedisRepository
+from repository.sql_repository import SqlRepository
 
-db = db
 
-def create_product():
-    name = input("Name: ") 
-    type = input("Type: ")
-    price_input = input("Price: ").strip()
-    price = float(price_input) if price_input else None
-    sub_type_input = input("Sub type (optional): ").strip()
-    sub_type = str(sub_type_input) if sub_type_input else None
-    rating_input = input("Rating 0 - 5 (optional): ").strip()
-    rating = float(rating_input) if rating_input else None
-    weight_input = input("Weight (optional): ").strip()
-    weight = float(weight_input) if weight_input else None
-    size = input("Size (example 2.4x1.2) in meters: ")
+print("Choose storage:")
+print("1 - Memory")
+print("2 - JSON")
+print("3 - Redis")
+print("4 - SQL Server")
 
-    size_x = None
-    size_y = None
+choice = input("Choice: ")
 
-    if size:
-        parts = size.lower().split("x")
-        if len(parts) == 2:
-            size_x = float(parts[0])
-            size_y = float(parts[1])
+if choice == "1":
+    db = MemoryRepository()
 
-    is_available = input("Is available (true/false): ").lower() == "true"
+elif choice == "2":
+    db = JsonRepository()
 
-    product = Product(
-        id = 0,
-        name=name,
-        type=type,
-        sub_type=sub_type,
-        price=price,
-        rating=rating,
-        weight=weight,
-        size_x=size_x,
-        size_y=size_y,
-        is_avaliable=is_available
-        )
-    
-    db.add(product)
-    print(f"Product added, ID: {product.id}")
+elif choice == "3":
+    db = RedisRepository()
 
-def update_product():
-    product_id = int(input("Enter product ID: "))
-    sub_type = input("New sub-type: ")
-    price = float(input("New price: "))
-    rating = float(input("New rating: "))
-    is_available = (input("Is available (true/false): ").lower() in ["true", "yes", "1"])
+elif choice == "4":
+    db = SqlRepository()
 
-    result = db.update(product_id, sub_type=sub_type, price=price, rating=rating, is_avaliable=is_available)
-
-    if result:
-        print("Product updated")
-    else:
-        print("Product not found")
-
-def delete_product():
-    product_id = int(input("Enter product ID: "))
-    print(db.delete(product_id))
-
-def show_products():
-    page = int(input("Page number: "))
-    products = db.get_page(page)
-
-    for product in products:
-        print(product)
-    
-def show_all_products():
-    products = db.get_all()
-    for product in products:
-        print(product)
-
-def main():
-    while True:
-        print("1. Create product")
-        print("2. Update product")
-        print("3. Delete product")
-        print("4. Show products")
-        print("5. Show all products")
-        print("6. Exit")
-
-        choice = input("Enter your choice: ")
-
-        if choice == "1":
-            create_product()
-        elif choice == "2":
-            update_product()
-        elif choice == "3":
-            delete_product()
-        elif choice == "4":
-            show_products()
-        elif choice == "5":
-            show_all_products()
-        elif choice == "6":
-            break
-        else:
-            print("Invalid choice")
-
-if __name__ == "__main__":
-    main()
+else:
+    print("Invalid choice")
+    exit()

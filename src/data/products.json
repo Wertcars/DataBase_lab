@@ -1,0 +1,14 @@
+[
+    {
+        "id": 2,
+        "name": "Table",
+        "type": "Furniture",
+        "price": 300,
+        "size_x": 2,
+        "size_y": 1,
+        "is_avaliable": true,
+        "sub_type": "Kitchen",
+        "rating": 4.8,
+        "weight": 15
+    }
+]
